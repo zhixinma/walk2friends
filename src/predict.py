@@ -1,5 +1,4 @@
 import os
-
 import pandas as pd
 import numpy as np
 from sklearn.metrics import roc_auc_score
@@ -39,6 +38,7 @@ def pair_construct(u_list, friends):
 
     return pair
 
+
 def feature_construct(city, model_name, friends, walk_len=100, walk_times=20, num_features=128):
     '''construct the feature matrixu2_checkin
     Args:
@@ -59,8 +59,9 @@ def feature_construct(city, model_name, friends, walk_len=100, walk_times=20, nu
     emb = pd.read_csv('dataset/'+city+'/emb/'+city+'_'+model_name+'_'+\
                       str(int(walk_len))+'_'+str(int(walk_times))+'_'+str(int(num_features))+'.emb',\
                       header=None, skiprows=1, sep=' ')
+
     emb = emb.rename(columns={0:'uid'})# last column is user id
-    emb = emb.loc[emb.uid>0]# only take users, no loc_type, not necessary
+    emb = emb.loc[emb.uid > 0]# only take users, no loc_type, not necessary
 
     pair = pair_construct(emb.uid.unique(), friends)
 
@@ -72,19 +73,20 @@ def feature_construct(city, model_name, friends, walk_len=100, walk_times=20, nu
         u1_vector = emb.loc[emb.uid==u1, range(1, emb.shape[1])]
         u2_vector = emb.loc[emb.uid==u2, range(1, emb.shape[1])]
 
-        i_feature = pd.DataFrame([[u1, u2, label,\
-                                   cosine(u1_vector, u2_vector),\
-                                   euclidean(u1_vector, u2_vector),\
-                                   correlation(u1_vector, u2_vector),\
-                                   chebyshev(u1_vector, u2_vector),\
-                                   braycurtis(u1_vector, u2_vector),\
-                                   canberra(u1_vector, u2_vector),\
-                                   cityblock(u1_vector, u2_vector),\
+        i_feature = pd.DataFrame([[u1, u2, label,
+                                   cosine(u1_vector, u2_vector),
+                                   euclidean(u1_vector, u2_vector),
+                                   correlation(u1_vector, u2_vector),
+                                   chebyshev(u1_vector, u2_vector),
+                                   braycurtis(u1_vector, u2_vector),
+                                   canberra(u1_vector, u2_vector),
+                                   cityblock(u1_vector, u2_vector),
                                    sqeuclidean(u1_vector, u2_vector)]])
 
         i_feature.to_csv('dataset/'+city+'/feature/'+city+'_'+model_name+'_'+\
                          str(int(walk_len))+'_'+str(int(walk_times))+'_'+str(int(num_features))+'.feature',\
                          index = False, header = None, mode = 'a')
+
 
 def unsuper_friends_predict(city, model_name, walk_len=100, walk_times=20, num_features=128):
     ''' unsupervised prediction

@@ -1,0 +1,24 @@
+nohup: ignoring input
+Check-in data: (500776, 3)
+Friends data: (25413, 2)
+User-Location Graph: (247105, 3)
+Location-User Graph: (247105, 3)
+20_locid
+Start walking
+Total Number of Cores: 80
+Number of jobs: 40
+walk done
+Total seconds for working: 1017
+emb training
+walk_len 100 walk_times 20 num_features 128
+training done
+emb training done
+Total seconds for training: 145
+cosine 0.7384709831067644
+euclidean 0.6629947729335948
+correlation 0.7371227696217895
+chebyshev 0.6226236470334533
+braycurtis 0.7314244732579894
+canberra 0.6923857615628219
+cityblock 0.6600415795985587
+sqeuclidean 0.6629947729335948
