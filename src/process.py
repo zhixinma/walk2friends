@@ -34,19 +34,11 @@ def data_process(city, cicnt):
 
 
 # add by zhixin
-def data_process_gowalla():
-    ''' process the raw dataset
-    Args:
-        city: city
-        cicnt: ?
-    Returns:
-        checkin: processed check-in data
-        friends: friends list (asymetric) [u1, u2]
-    '''
+def data_process_gowalla(toy=False):
 
-    toy_rows = 99999
-    checkin = pd.read_csv('gowalla/gowalla_checkins.csv', nrows=toy_rows)
-    friends = pd.read_csv('gowalla/gowalla_friendship.csv', nrows=toy_rows)
+    num_rows = 99999 if toy else None
+    checkin = pd.read_csv('gowalla/gowalla_checkins.csv', nrows=num_rows)
+    friends = pd.read_csv('gowalla/gowalla_friendship.csv', nrows=num_rows)
     checkin = checkin.rename(columns={"userid": "uid", "placeid": "locid"})
     friends = friends.rename(columns={"userid1": "u1", "userid2": "u2"})
 
